@@ -1,6 +1,8 @@
 import axios, { type AxiosError, type AxiosResponse } from 'axios';
 
 import { config } from '@/config';
+import { AUTH_LINKS } from '@/features/auth';
+import { useAuthStore } from '@/features/auth/store';
 import { normalizeError } from '@/lib/error';
 import { logger } from '@/lib/logger';
 import type { ApiError, ApiResponse } from '@/types/api.types';
@@ -64,6 +66,16 @@ axiosInstance.interceptors.response.use(
       requestId,
       responseData: error.response?.data,
     });
+
+    // Handle 401 Unauthorized - logout user
+    if (error.response?.status === 401 && error.response?.data?.message === 'Unauthorized') {
+      // Clear auth store
+      useAuthStore.getState().clearUser();
+      // Remove auth token from localStorage
+      localStorage.removeItem('auth_token');
+      // Redirect to login page
+      window.location.href = AUTH_LINKS.LOGIN;
+    }
 
     // const normalizedError: ApiError = {
     //   message: error.response?.data?.message || error.message,
