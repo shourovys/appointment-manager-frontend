@@ -39,11 +39,11 @@
   node_bundler = "esbuild"
   external_node_modules = []
 
-[[context.production]]
+[context.production]
   environment = { VITE_APP_ENV = "production" }
 
-[[context.deploy-preview]]
+[context.deploy-preview]
   environment = { VITE_APP_ENV = "staging" }
 
-[[context.branch-deploy]]
+[context.branch-deploy]
   environment = { VITE_APP_ENV = "staging" }
