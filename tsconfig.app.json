@@ -7,6 +7,7 @@
     "module": "ESNext",
     "types": ["vite/client", "vitest/globals"],
     "skipLibCheck": true,
+    "ignoreDeprecations": "6.0",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -50,5 +51,6 @@
 
     /* Linting */
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/tests", "**/*.test.tsx", "**/*.test.ts", "**/*.spec.tsx", "**/*.spec.ts"]
 }
